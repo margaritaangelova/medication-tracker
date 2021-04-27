@@ -1,0 +1,185 @@
+//for global styles and variable values changes
+
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700|Lato:400,700');
+
+$purple: #7E7DD6;
+$gray: #E5E9F9;
+$dark-gray: #606168;
+
+$light-purple: #C4BCF3;
+$dark-primary: #32200D;
+
+
+//update bulma's global variables:
+$family-sans-serif: "Nunito",sans-serif;
+$primary: $light-purple;
+
+// Update some of Bulma's component variables
+
+$control-border-width: 2px;
+$input-border-color: transparent;
+$input-shadow: none;
+
+
+// Set custom global styles (will be applied to whole app)
+
+html {
+    background: linear-gradient(to right, lighten($light-purple, 10%), $purple) !important;
+}
+
+html, body {
+    height: 100%;
+}
+
+.centered-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.modal-box {
+    min-height: 200px;
+    width: 100%;
+    max-width: 580px;
+    background: white;
+    border-radius: 5px;
+    padding: 35px;
+}
+
+a{
+    color: $dark-gray;
+}
+
+.medication-manager-container{
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+    max-width: 1000px;
+    max-height: 580px;
+}
+
+.sidebar{
+    display: flex;
+    flex-direction: column;
+
+    width: 250px;
+    background: white;
+    padding: 42px;
+
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.medications-container{
+    background-color: $light-purple;
+    position: relative;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+
+    padding: 42px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+
+    .top-bar {
+        margin-bottom: 20px;
+        display: flex;
+        .title {
+            flex-grow: 1;
+            margin: 0;
+        }
+    }
+}
+
+.title{
+    font-family: 'Lato';
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.list-menu{
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+    flex-grow: 1;
+
+    //because of SCSS, we can nest the .list-menu-item
+    .list-menu-item{
+        display: flex;
+        align-items: center;
+        padding: 10px 15px;
+        border-radius: 5px;
+
+        width: 100%;
+        
+        margin-bottom: 5px;
+
+        &:hover{
+            background: lighten($light-purple, 10%);
+        }
+
+        &.is-active{
+            background-color: $light-purple;
+        }
+    }
+
+}
+
+.medication {
+    display: flex;
+    background: white;
+    padding: 15px 20px;
+
+    justify-content: center;
+    align-items: center;
+    //rounding each task div:
+    border-radius: 5px;
+
+    //for creating space between tasks:
+    margin-top: 10px;
+
+    //because the styles should be accessible only for tasks that are not yet completed
+    &:not(.complete){
+        cursor: pointer;
+    
+        //to make the box-shadow appear after 0.2 seconds
+        transition: box-shadow 0.2s ease, transform 0.2s ease;
+    
+        //creates a button-click effect
+        &:active {
+            transform: scale(0.95);
+        }
+    
+        //adding the gray outline when we hover over a task:
+        &:hover {
+            box-shadow: 0 0 0 5px #eeeeee;
+
+            .task-buttons{
+                opacity: 1;
+            }
+        }
+
+        
+    }
+    
+    
+    &.completed  {
+        text-decoration: line-through;
+        opacity: 80%;
+    }
+    
+    .task-text{
+        display: flex;
+        flex-grow: 1;
+
+    }
+
+    .task-buttons{
+        transition: 0.2s;
+        opacity: 0;
+    }
+}

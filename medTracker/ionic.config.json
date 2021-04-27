@@ -1,0 +1,7 @@
+{
+  "name": "medTracker",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
