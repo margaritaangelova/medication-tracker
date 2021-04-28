@@ -25,10 +25,15 @@ $input-shadow: none;
 
 html {
     background: linear-gradient(to right, lighten($light-purple, 10%), $purple) !important;
+    box-sizing: content-box !important;
 }
 
 html, body {
     height: 100%;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box !important;
 }
 
 .centered-content{
@@ -65,7 +70,7 @@ a{
     display: flex;
     flex-direction: column;
 
-    width: 250px;
+    width: 300px;
     background: white;
     padding: 42px;
 
@@ -182,4 +187,17 @@ a{
         transition: 0.2s;
         opacity: 0;
     }
+}
+
+.circle-add-button{
+    bottom: 35px;
+    right: 35px;
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    padding: 0px !important;
+    background-color: white;
+
+    border-radius: 50%;
+    
 }

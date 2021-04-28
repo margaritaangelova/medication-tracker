@@ -14,20 +14,25 @@
         </a>
       </div>
 
-      <button class="button is-primary">+ New Category</button>
+      <button class="button is-primary" routerLink="/new-category">+ New Category</button>
     </div>
 
     <div class="medications-container">
       <h1 class="title">Medications</h1>
-
+      
+      <!-- Medication elements -->
       <div class="medication completed">
         <p>First Medication</p>
       </div>
       <div class="medication">
         <p>Second Medication</p>
       </div>
+
+
+      <button title="New Medication" class="circle-add-button button" routerLink="/new-medication">
+        <img src="../../../assets/plus-icon.svg">
+    </button>
     </div>
 
-    <!-- Medication elements -->
   </div>
 </div>
