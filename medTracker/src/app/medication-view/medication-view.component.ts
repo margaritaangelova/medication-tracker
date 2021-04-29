@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MedicationService } from 'src/app/medication.service';
 
 @Component({
   selector: 'app-medication-view',
@@ -8,15 +7,8 @@ import { MedicationService } from 'src/app/medication.service';
 })
 export class MedicationViewComponent implements OnInit {
 
-  constructor(private medicationService: MedicationService) { }
+  constructor() { }
 
   ngOnInit() {}
 
-  createNewCategory(){
-    debugger
-    this.medicationService.createCategory('Testing..').subscribe((response: any) => {
-      console.log(response);
-      
-    });
-  }
 }
