@@ -10,10 +10,10 @@ export class MedicationService {
 
   // aTask: any;
 
-  // getLists() {
+  getCategories() {
     
-  //   return this.webReqService.get('lists');
-  // }
+    return this.webReqService.get('categories');
+  }
   
   createCategory(title: string) {
     // We want to send a web request to create a category

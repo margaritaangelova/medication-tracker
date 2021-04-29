@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 import { MedicationService } from 'src/app/medication.service';
 
 @Component({
@@ -7,16 +8,21 @@ import { MedicationService } from 'src/app/medication.service';
   styleUrls: ['./medication-view.component.scss'],
 })
 export class MedicationViewComponent implements OnInit {
+  categories: any[];
+  medications: any[];
 
-  constructor(private medicationService: MedicationService) { }
+  constructor(private medicationService: MedicationService, private route: ActivatedRoute) { }
 
-  ngOnInit() {}
-
-  createNewCategory(){
-    debugger
-    this.medicationService.createCategory('Testing..').subscribe((response: any) => {
-      console.log(response);
+  ngOnInit() {
+    this.route.params.subscribe((params: Params) => {
+      console.log(params);
       
+
+    });
+
+    this.medicationService.getCategories().subscribe((categories: any) => {
+      this.categories = categories;
     });
   }
+
 }
