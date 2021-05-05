@@ -4,8 +4,12 @@
       <h1 class="title">Categories</h1>
       <div class="list-menu">
 
-        <a class="list-menu-item" *ngFor="let category of categories">
-          <p>{{ category.title }}</p>
+        <a class="list-menu-item" 
+          *ngFor="let category of categories" 
+          (click)="onCategoryClick()" 
+          [routerLink]="['/categories', category._id]">
+
+            <p>{{ category.title }}</p>
         </a>
 
       </div>
@@ -16,9 +20,9 @@
       <h1 class="title">Medications</h1>
 
       <!-- Medication elements -->
-      <div class="medication">
+      <div class="medication" *ngFor="let medication of medications">
         <div class="medication-text">
-          <p>First Medication</p>
+          <p >{{ medication.title }}</p>
         </div>
         <div class="medication-buttons">
           <button class="button">

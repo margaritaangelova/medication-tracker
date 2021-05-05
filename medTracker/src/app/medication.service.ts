@@ -41,10 +41,10 @@ export class MedicationService {
 
   // }
 
-  // getTasks(listId: string) {
+  getMedications(categoryId: string) {
 
-  //   return this.webReqService.get(`lists/${listId}/tasks`);
-  // }
+    return this.webReqService.get(`categories/${categoryId}/medications`);
+  }
 
   // getTask(listId: string, taskId: string){
   //   return this.webReqService.get(`lists/${listId}/tasks/${taskId}`);
