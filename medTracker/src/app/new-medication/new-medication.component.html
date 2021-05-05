@@ -1,3 +1,25 @@
-<p>
-  new-medication works!
-</p>
+<div class="centered-content">
+  <div class="modal-box">
+    <h1 class="title">Create a new medication</h1>
+
+    <!-- Bulma input -->
+    <input #listTitleInput class="input has-background-light is-medium" type="text" placeholder="Enter medication name...">
+    <br><br>
+    <input #frequency class="input has-background-light is-medium" type="text" placeholder="Enter intake frequency...">
+    <br><br>
+    <!-- <input #listTitleInput class="input has-background-light is-medium" type="text" placeholder="Enter times per day..."> -->
+    <!-- <br><br> -->
+    <input #intakeTime class="input has-background-light is-medium" type="text" placeholder="Set time for intake...">
+    <br><br>
+
+    <div class="buttons is-right">
+      <button class="button is-medium" (click)="goBack()">Cancel</button>
+      <button class="button is-primary is-medium  has-text-white"
+        (click)="createMedication(listTitleInput.value, frequency.value, intakeTime.value)">Create</button>
+    </div>
+
+
+
+  </div>
+
+</div>
