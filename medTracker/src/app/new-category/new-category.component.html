@@ -3,13 +3,13 @@
     <h1 class="title">Create a new category</h1>
 
     <!-- Bulma input -->
-    <input #listTitleInput class="input has-background-light is-medium" type="text" placeholder="Enter category name...">
+    <input #categoryTitleInput class="input has-background-light is-medium" type="text" placeholder="Enter category name...">
     <br><br>
 
     <div class="buttons is-right">
       <button class="button is-medium" (click)="goBack()">Cancel</button>
-      <!-- <button class="button is-primary is-medium  has-text-white"
-        (click)="createList(listTitleInput.value)">Create</button> -->
+      <button class="button is-primary is-medium  has-text-white"
+        (click)="createCategory(categoryTitleInput.value)">Create</button>
     </div>
 
 
