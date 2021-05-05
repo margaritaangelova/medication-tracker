@@ -139,15 +139,15 @@ a{
     background: white;
     padding: 15px 20px;
 
-    justify-content: center;
     align-items: center;
-    //rounding each task div:
+
+    //rounding each medication div:
     border-radius: 5px;
 
-    //for creating space between tasks:
+    //for creating space between medications:
     margin-top: 10px;
 
-    //because the styles should be accessible only for tasks that are not yet completed
+    //because the styles should be accessible only for medications that are not yet completed
     &:not(.complete){
         cursor: pointer;
     
@@ -159,31 +159,30 @@ a{
             transform: scale(0.95);
         }
     
-        //adding the gray outline when we hover over a task:
+        //adding the gray outline when we hover over a medication:
         &:hover {
             box-shadow: 0 0 0 5px #eeeeee;
 
-            .task-buttons{
+            .medication-buttons{
                 opacity: 1;
             }
         }
 
-        
     }
     
-    
-    &.completed  {
+    //only the text should have a "line-through" decoration
+    &.completed.medication-text  {
         text-decoration: line-through;
         opacity: 80%;
     }
     
-    .task-text{
+    .medication-text{
         display: flex;
         flex-grow: 1;
 
     }
 
-    .task-buttons{
+    .medication-buttons{
         transition: 0.2s;
         opacity: 0;
     }
@@ -200,4 +199,9 @@ a{
 
     border-radius: 50%;
     
+}
+
+.edit-button-image, .delete-button-image{
+    height: 25px;
+    width: 25px;
 }
