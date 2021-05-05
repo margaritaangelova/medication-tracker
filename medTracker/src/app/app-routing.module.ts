@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { MedicationViewComponent } from './medication-view/medication-view.component';
 import { NewCategoryComponent } from './new-category/new-category.component';
 import { NewMedicationComponent } from './new-medication/new-medication.component';
 
@@ -17,7 +18,9 @@ const routes: Routes = [
   },
   {
     path: 'new-medication', component: NewMedicationComponent
-  }
+  },
+  // {path: 'categories', component: MedicationViewComponent},
+  {path: 'categories/:categoryId', loadChildren: () => import('./medication-view/medication-view.module').then( m => m.MedicationViewComponentModule)},
 ];
 @NgModule({
   imports: [

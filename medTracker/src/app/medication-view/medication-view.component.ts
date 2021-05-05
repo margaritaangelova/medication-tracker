@@ -11,18 +11,30 @@ export class MedicationViewComponent implements OnInit {
   categories: any[];
   medications: any[];
 
+  selectedCategoryID: string;
+
   constructor(private medicationService: MedicationService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.route.params.subscribe((params: Params) => {
-      console.log(params);
-      
-
-    });
 
     this.medicationService.getCategories().subscribe((categories: any) => {
       this.categories = categories;
     });
+  }
+
+  onCategoryClick(){
+    this.route.params.subscribe(
+      (params: Params) => {
+        this.selectedCategoryID = params.categoryId;
+
+        this.medicationService.getMedications(this.selectedCategoryID).subscribe((medications: any) => {
+          this.medications = medications;
+          
+        });
+      }
+
+
+    )
   }
 
 }

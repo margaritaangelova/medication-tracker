@@ -8,7 +8,14 @@ import { IonicModule } from '@ionic/angular';
 import { MedicationViewComponent } from './medication-view.component';
 
 @NgModule({
-  imports: [ CommonModule, FormsModule, IonicModule, RouterModule],
+  imports: [ CommonModule, FormsModule, IonicModule, 
+    RouterModule.forChild([
+      {
+        path: '',
+        pathMatch: 'full',
+        component: MedicationViewComponent,
+      }
+    ])],
   declarations: [MedicationViewComponent],
   exports: [MedicationViewComponent]
 })
