@@ -7,7 +7,8 @@
         <a class="category-menu-item" 
           *ngFor="let category of categories" 
           (click)="onCategoryClick()" 
-          [routerLink]="['/categories', category._id]">
+          [routerLink]="['./categories', category._id]"
+          routerLinkActive="is-active">
 
             <p>{{ category.title }}</p>
         </a>

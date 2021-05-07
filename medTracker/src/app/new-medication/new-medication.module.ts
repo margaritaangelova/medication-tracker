@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { NewCategoryComponent } from './new-category.component';
+import { NewMedicationComponent } from './new-medication.component';
 
 @NgModule({
   imports: [ CommonModule, FormsModule, IonicModule, 
@@ -13,10 +13,10 @@ import { NewCategoryComponent } from './new-category.component';
       {
         path: '',
         pathMatch: 'full',
-        component: NewCategoryComponent,
+        component: NewMedicationComponent,
       }
     ])],
-  declarations: [NewCategoryComponent],
-  exports: [NewCategoryComponent]
+  declarations: [NewMedicationComponent],
+  exports: [NewMedicationComponent]
 })
-export class NewCategoryComponentModule {}
+export class NewMedicationComponentModule {}
