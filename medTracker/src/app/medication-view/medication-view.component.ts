@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MedicationService } from 'src/app/medication.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class MedicationViewComponent implements OnInit {
 
   selectedCategoryID: string;
 
-  constructor(private medicationService: MedicationService, private route: ActivatedRoute) { }
+  constructor(private medicationService: MedicationService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
 
@@ -35,6 +35,14 @@ export class MedicationViewComponent implements OnInit {
 
 
     )
+  }
+
+  onDeleteCategoryClick(){
+    this.medicationService.deleteCategory(this.selectedCategoryID).subscribe((response) => {
+
+      this.router.navigate(['']);
+
+    });
   }
 
 }

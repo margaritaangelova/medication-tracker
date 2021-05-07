@@ -2,9 +2,9 @@
   <div class="medication-manager-container">
     <div class="sidebar">
       <h1 class="title">Categories</h1>
-      <div class="list-menu">
+      <div class="category-menu">
 
-        <a class="list-menu-item" 
+        <a class="category-menu-item" 
           *ngFor="let category of categories" 
           (click)="onCategoryClick()" 
           [routerLink]="['/categories', category._id]">
@@ -17,7 +17,32 @@
     </div>
 
     <div class="medications-container">
-      <h1 class="title">Medications</h1>
+
+      <div class="top-bar">
+        <h1 class="title has-text-primary">
+          Medications
+        </h1>
+        <div class="dropdown is-hoverable is-right">
+            <div class="dropdown-trigger">
+                <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+                    <span>Settings</span>
+                    <!-- <span class="icon is-small">
+                  <i class="fas fa-angle-down" aria-hidden="true"></i>
+                </span> -->
+                </button>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+                <div class="dropdown-content">
+                    <a [routerLink]="['./edit-category']" class="dropdown-item">
+                        Edit this category
+                    </a>
+                    <a (click)="onDeleteCategoryClick()" class="dropdown-item has-text-danger">
+                        Delete this category
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
       <!-- Medication elements -->
       <div class="medication" *ngFor="let medication of medications">

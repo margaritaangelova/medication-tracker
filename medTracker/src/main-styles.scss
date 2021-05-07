@@ -106,14 +106,14 @@ a{
     letter-spacing: 2px;
 }
 
-.list-menu{
+.category-menu{
     display: flex;
     flex-direction: column;
     margin-top: 15px;
     flex-grow: 1;
 
-    //because of SCSS, we can nest the .list-menu-item
-    .list-menu-item{
+    //because of SCSS, we can nest the .category-menu-item
+    .category-menu-item{
         display: flex;
         align-items: center;
         padding: 10px 15px;

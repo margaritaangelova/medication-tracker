@@ -27,6 +27,10 @@ const routes: Routes = [
   // {path: 'categories', component: MedicationViewComponent},
   {path: 'categories/:categoryId', loadChildren: () => import('./medication-view/medication-view.module').then( m => m.MedicationViewComponentModule)},
   {path: 'categories/:categoryId/medications/:medicationId', component: MedicationViewComponentModule},
+  {
+    path: 'categories/:categoryId/edit-category',
+    loadChildren: () => import('./edit/edit-category/edit-category.module').then( m => m.EditCategoryComponentModule)
+  },
 ];
 @NgModule({
   imports: [
