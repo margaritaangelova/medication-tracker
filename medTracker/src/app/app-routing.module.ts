@@ -15,6 +15,10 @@ const routes: Routes = [
     loadChildren: () => import('./login/login.module').then( m => m.LoginComponentModule)
   },
   {
+    path: 'register',
+    loadChildren: () => import('./register/register.module').then( m => m.RegisterComponentModule)
+  },
+  {
     path: 'new-category', component: NewCategoryComponent
   },
   {
