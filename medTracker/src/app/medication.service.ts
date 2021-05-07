@@ -20,10 +20,10 @@ export class MedicationService {
     return this.webReqService.post('categories', { title });
   }
 
-  // updateList(id: string, title: string) {
-  //   // We want to send a web request to create a list
-  //   return this.webReqService.patch(`lists/${id}`, { title });
-  // }
+  updateCategory(id: string, title: string) {
+    // We want to send a web request to create a list
+    return this.webReqService.patch(`categories/${id}`, { title });
+  }
 
   // updateTask(listId: string,taskId: string, title: string) {
   //   // We want to send a web request to create a list
@@ -31,10 +31,9 @@ export class MedicationService {
   // }
 
 
-  // deleteList(id: string){
-  //   return this.webReqService.delete(`lists/${id}`);
-
-  // }
+  deleteCategory(id: string){
+    return this.webReqService.delete(`categories/${id}`);
+  }
 
   // deleteTask(listId: string, taskId: string){
   //   return this.webReqService.delete(`lists/${listId}/tasks/${taskId}`);
