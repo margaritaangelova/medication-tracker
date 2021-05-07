@@ -52,10 +52,10 @@ export class MedicationService {
 
   
 
-  // createTask(title: string, listId: string) {
-  //   // We want to send a web request to create a task
-  //   return this.webReqService.post(`lists/${listId}/tasks`, { title });
-  // }
+  createMedication(title: string, categoryId: string, frequency: number, intakeTime: number) {
+    // We want to send a web request to create a medication
+    return this.webReqService.post(`categories/${categoryId}/medications`, { title, categoryId, frequency, intakeTime });
+  }
 
   // complete(task: Task){
   //   return this.webReqService.patch(`lists/${task._listId}/tasks/${task._id}`, {
