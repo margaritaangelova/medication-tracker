@@ -1,9 +1,5 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { MedicationViewComponent } from './medication-view/medication-view.component';
-import { MedicationViewComponentModule } from './medication-view/medication-view.module';
-import { NewCategoryComponent } from './new-category/new-category.component';
-import { NewMedicationComponent } from './new-medication/new-medication.component';
 
 const routes: Routes = [
   {
@@ -19,14 +15,21 @@ const routes: Routes = [
     loadChildren: () => import('./register/register.module').then( m => m.RegisterComponentModule)
   },
   {
-    path: 'new-category', component: NewCategoryComponent
+    path: 'new-category',
+    loadChildren: () => import('./new-category/new-category.module').then( m => m.NewCategoryComponentModule)
   },
+  // {
+  //   path: 'categories/:categoryId', 
+  //   loadChildren: () => import('./medication-view/medication-view.module').then( m => m.MedicationViewComponentModule)
+  // },
+  // {
+  //   path: 'categories/:categoryId/new-medication',
+  //   loadChildren: () => import('./new-medication/new-medication.module').then( m => m.NewMedicationComponentModule)
+  // },
   {
-    path: 'categories/:categoryId/new-medication', component: NewMedicationComponent
+    path: 'categories/:categoryId/medications/:medicationId',
+    loadChildren: () => import('./medication-view/medication-view.module').then( m => m.MedicationViewComponentModule)
   },
-  // {path: 'categories', component: MedicationViewComponent},
-  {path: 'categories/:categoryId', loadChildren: () => import('./medication-view/medication-view.module').then( m => m.MedicationViewComponentModule)},
-  {path: 'categories/:categoryId/medications/:medicationId', component: MedicationViewComponentModule},
   {
     path: 'categories/:categoryId/edit-category',
     loadChildren: () => import('./edit/edit-category/edit-category.module').then( m => m.EditCategoryComponentModule)
