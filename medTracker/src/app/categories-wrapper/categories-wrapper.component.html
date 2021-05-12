@@ -1,0 +1,15 @@
+<p>1234</p>
+<div class="d-flex">
+  <div>
+    <a class="category-menu-item" 
+    *ngFor="let category of categoriesArray" 
+    (click)="onCategoryClick(category._id)"
+    [routerLink]="['./categories']">
+      
+      <p>{{ category.title }}</p>
+    </a>
+  </div>
+  <div>
+    <ion-router-outlet></ion-router-outlet>
+  </div>
+</div>

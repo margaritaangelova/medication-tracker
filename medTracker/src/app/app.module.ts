@@ -19,7 +19,7 @@ import { TabsPageModule } from './tabs/tabs.module';
     AppRoutingModule, 
     HttpClientModule,
     ExploreContainerComponentModule,
-    TabsPageModule,
+    // TabsPageModule,
   ],
   providers: [{ 
     provide: RouteReuseStrategy, 

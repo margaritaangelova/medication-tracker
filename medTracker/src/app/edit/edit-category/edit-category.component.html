@@ -6,7 +6,7 @@
           <input #categoryTitleInput class="input has-background-light is-medium" type="text" placeholder="Enter category name...">
           <br><br>
           <div class="buttons is-right">
-              <button class="button is-medium" [routerLink]="['/categories', categoryId]">Cancel</button>
+              <button class="button is-medium" (click)="goBack()">Cancel</button>
               <button class="button is-primary is-medium  has-text-white" (click)="updateCategory(categoryTitleInput.value)">Save</button>
           </div>
 

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { MedicationService } from '../medication.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Category } from '../models/category.model';
 
 @Component({
   selector: 'app-new-category',
@@ -16,10 +15,10 @@ export class NewCategoryComponent implements OnInit {
   ngOnInit() {}
 
   createCategory(title: string) {
-    this.medicationService.createCategory(title).subscribe((category: Category) => {
+    this.medicationService.createCategory(title).subscribe((category: any) => {
 
       //now we navigate to /categoryies/category._id
-      this.router.navigate([ '/categories', category._id ]); 
+      this.router.navigate([ 'tabs/tab1/categories', category._id ]); 
     });
 
   }
