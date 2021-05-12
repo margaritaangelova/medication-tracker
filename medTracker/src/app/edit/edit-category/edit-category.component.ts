@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MedicationService } from 'src/app/medication.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit-category',
@@ -10,7 +11,7 @@ import { MedicationService } from 'src/app/medication.service';
 })
 export class EditCategoryComponent implements OnInit, OnDestroy {
 
-  constructor(private route: ActivatedRoute, private medicationService: MedicationService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private medicationService: MedicationService, private router: Router, private location: Location) { }
 
   categoryId: string;
 
@@ -42,6 +43,10 @@ export class EditCategoryComponent implements OnInit, OnDestroy {
       this.router.navigate(['']);
     });
 
+  }
+
+  goBack(){
+    this.location.back();
   }
 
 }

@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CategoriesWrapperComponent } from '../categories-wrapper/categories-wrapper.component';
+import { Tab1PageModule } from '../tab1/tab1.module';
+import { Tab1Page } from '../tab1/tab1.page';
 import { TabsPage } from './tabs.page';
 
 const routes: Routes = [
@@ -9,7 +12,7 @@ const routes: Routes = [
     children: [
       {
         path: 'tab1',
-        loadChildren: () => import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+        loadChildren: () => import('../tab1/tab1.module').then(m => m.Tab1PageModule),
       },
       {
         path: 'tab2',
