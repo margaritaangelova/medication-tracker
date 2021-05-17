@@ -10,7 +10,7 @@ const routes: Routes = [
     component: Tab1Page,
     children: [
       {
-        path: 'test',
+        path: 'categories',
         loadChildren: () => import('../categories-wrapper/categories-wrapper.module').then( m => m.CategoriesWrapperComponentModule)
       }
     ]

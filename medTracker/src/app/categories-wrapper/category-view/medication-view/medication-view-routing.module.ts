@@ -7,11 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: MedicationViewComponent
-  }
-  // {
-  //   path: 'new-medication',
-  //   loadChildren: () => import('../new-medication/new-medication.module').then( m => m.NewMedicationComponentModule)
-  // },
+  },
+  {
+    path: 'new-medication',
+    loadChildren: () => import('../../../new-medication/new-medication.module').then( m => m.NewMedicationComponentModule)
+  },
   // {
   //   path: 'categories/:categoryId/edit-category',
   //   loadChildren: () => import('../edit/edit-category/edit-category.module').then( m => m.EditCategoryComponentModule)

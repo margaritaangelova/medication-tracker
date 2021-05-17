@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ExploreContainerComponentModule } from './explore-container/explore-container.module';
 import { TabsPageModule } from './tabs/tabs.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +21,7 @@ import { TabsPageModule } from './tabs/tabs.module';
     HttpClientModule,
     ExploreContainerComponentModule,
     // TabsPageModule,
+    RouterModule,
   ],
   providers: [{ 
     provide: RouteReuseStrategy, 

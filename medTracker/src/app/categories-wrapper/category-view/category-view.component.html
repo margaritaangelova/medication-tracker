@@ -1,0 +1,17 @@
+<div class="category-menu">
+  <div class="d-flex">
+    <div>
+      <a class="category-menu-item" *ngFor="let category of categoriesArray" (click)="onCategoryClick(category._id)"
+       [ngClass]="{ 'is-active': category._id===selectedCategoryID }">
+
+        <p>{{ category.title }}</p>
+      </a>
+    </div>
+    <!-- <div>
+    <ion-router-outlet></ion-router-outlet>
+  </div> -->
+    <!-- <ion-col size="6">
+      <ion-router-outlet></ion-router-outlet>
+    </ion-col> -->
+  </div>
+</div>

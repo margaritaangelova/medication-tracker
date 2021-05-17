@@ -1,0 +1,16 @@
+<!-- Medication elements -->
+      <div class="medication" *ngFor="let medication of medications">
+        <div class="medication-text">
+          <p>{{ medication.title }}</p>
+        </div>
+        <div class="medication-buttons">
+          <button class="button">
+            <img class="edit-button-image" title="Edit medication"
+              src="../../assets/154-1541056_edit-edit-icon-svg-hd-png-download.png">
+          </button>
+
+          <button class="button is-danger" style="margin-left: 5px;">
+            <img class="delete-button-image" title="Delete medication" src="../../assets/trash-512.webp">
+          </button>
+        </div>
+      </div> 
