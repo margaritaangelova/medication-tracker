@@ -1,68 +1,10 @@
 <div class="centered-content">
   <div class="medication-manager-container">
-    <div class="sidebar">
-      <h1 class="title">Categories</h1>
-     
-      <ion-col size="10">
-        <ion-router-outlet></ion-router-outlet>
-      </ion-col>
+    
 
-      <button class="button is-primary has-text-white" routerLink="/new-category">+ New Category</button>
-    </div>
+    <ion-router-outlet></ion-router-outlet>
 
-    <div class="medications-container">
-
-      <div class="top-bar">
-        <h1 class="title has-text-white">
-          Medications
-        </h1>
-        <div class="dropdown is-hoverable is-right">
-          <div class="dropdown-trigger">
-            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
-              <span>Settings</span>
-              <!-- <span class="icon is-small">
-                  <i class="fas fa-angle-down" aria-hidden="true"></i>
-                </span> -->
-            </button>
-          </div>
-          <div class="dropdown-menu" id="dropdown-menu4" role="menu">
-            <div class="dropdown-content">
-              <a [routerLink]="['./edit-category']" class="dropdown-item">
-                Edit this category
-              </a>
-              <a (click)="onDeleteCategoryClick()" class="dropdown-item has-text-danger">
-                Delete this category
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Medication elements -->
-      <!-- <div class="medication" *ngFor="let medication of medications">
-        <div class="medication-text">
-          <p>{{ medication.title }}</p>
-        </div>
-        <div class="medication-buttons">
-          <button class="button">
-            <img class="edit-button-image" title="Edit medication"
-              src="../../assets/154-1541056_edit-edit-icon-svg-hd-png-download.png">
-          </button>
-
-          <button class="button is-danger" style="margin-left: 5px;">
-            <img class="delete-button-image" title="Delete medication" src="../../assets/trash-512.webp">
-          </button>
-
-        </div>
-
-      </div> -->
-
-      <app-medication-view></app-medication-view>
-      <button title="New Medication" class="circle-add-button button" routerLink="./new-medication">
-
-        <img src="../../../assets/plus-icon.svg">
-      </button>
-    </div>
+    
 
   </div>
 </div>

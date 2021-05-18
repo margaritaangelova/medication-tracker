@@ -5,12 +5,11 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CategoriesWrapperComponent } from './categories-wrapper.component';
 import { CategoriesWrapperRoutingModule } from './categories-wrapper-routing.module';
-import { MedicationViewComponent } from './category-view/medication-view/medication-view.component';
 
 
 @NgModule({
     imports: [CommonModule, FormsModule, IonicModule, RouterModule, CategoriesWrapperRoutingModule],
-    declarations: [CategoriesWrapperComponent, MedicationViewComponent],
-    exports: [CategoriesWrapperComponent, MedicationViewComponent]
+    declarations: [CategoriesWrapperComponent],
+    exports: [CategoriesWrapperComponent]
 })
 export class CategoriesWrapperComponentModule { }

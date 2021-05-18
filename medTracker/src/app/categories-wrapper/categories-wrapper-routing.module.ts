@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MedicationViewComponent } from './category-view/medication-view/medication-view.component';
+import { MedicationViewComponent } from './medication-view/medication-view.component';
 import { CategoriesWrapperComponent } from './categories-wrapper.component';
 
 

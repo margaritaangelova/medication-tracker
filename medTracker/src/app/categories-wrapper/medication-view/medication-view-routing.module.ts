@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'new-medication',
-    loadChildren: () => import('../../../new-medication/new-medication.module').then( m => m.NewMedicationComponentModule)
+    loadChildren: () => import('../../new-medication/new-medication.module').then( m => m.NewMedicationComponentModule)
   },
   // {
   //   path: 'categories/:categoryId/edit-category',
