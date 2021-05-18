@@ -7,9 +7,11 @@ import { IonicModule } from '@ionic/angular';
 
 import { CategoryViewComponent } from './category-view.component';
 import { CategoryViewRoutingModule } from './category-view-routing.module';
+import { MedicationViewComponentModule } from '../medication-view/medication-view.module';
+
 
 @NgModule({
-  imports: [ CommonModule, FormsModule, IonicModule, RouterModule, CategoryViewRoutingModule],
+  imports: [ CommonModule, FormsModule, IonicModule, RouterModule, CategoryViewRoutingModule, MedicationViewComponentModule],
   declarations: [CategoryViewComponent],
   exports: [CategoryViewComponent]
 })

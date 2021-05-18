@@ -12,7 +12,7 @@ export class CategoryViewComponent implements OnInit {
   categoriesArray: any[] = [];
   medications: any[];
 
-  // @Output() medicationsSubmit: EventEmitter<any> = new EventEmitter<any>();
+  @Output() medicationsEmitter: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private medicationService: MedicationService, private route: ActivatedRoute, private router: Router) { }
 
@@ -25,28 +25,28 @@ export class CategoryViewComponent implements OnInit {
 
   onCategoryClick(categoryId: string){
 
-    // this.disabledCategoryId = categoryId;
-
-    // to avoid repetition of "categories/:categoryId" in the URL after more than one click on a category name:
-    // if(!this.router.url.includes(`/categories/${categoryId}`)){
-    //   this.router.navigate([`./categories/${categoryId}`], {relativeTo: this.route});
-    // }
-
+    //adding the categoryId to the path:
     this.router.navigateByUrl(`tabs/tab1/categories/${categoryId}`);
-    
-    
-    this.route.params.subscribe(
-      (params: Params) => {
-        this.selectedCategoryID = params.categoryId;
-        
-        this.medicationService.getMedications(this.selectedCategoryID).subscribe((medications: any) => {
-          this.medications = medications;
-          // this.medicationsSubmit.emit(this.medications);
-          
-        });
 
-      }
-    )
+    this.selectedCategoryID = categoryId;
+    console.log(this.selectedCategoryID);
+    
+    
+    //getting the medications for the selected category:
+    // this.route.params.subscribe(
+    //   (params: Params) => {
+    //     this.selectedCategoryID = params.categoryId;
+        
+    //     this.medicationService.getMedications(this.selectedCategoryID).subscribe((medications: any) => {
+    //       this.medications = medications;
+    //       // console.log(this.medications);
+          
+    //       this.medicationsEmitter.emit(this.medications);
+          
+    //     });
+
+    //   }
+    // )
     
     
   }
@@ -60,5 +60,26 @@ export class CategoryViewComponent implements OnInit {
 
   //   });
   // }
+
+  onCategoryClicked(medications){
+    // this.medicationsFromChild = medications;
+    // console.log(this.medicationsFromChild);
+
+    // console.log(this.medsRef);
+
+    // this.medicationsFromChild = this.medicationsArr.medications;
+    // console.log(this.medicationsFromChild);
+    
+  }
+
+
+  onDeleteCategoryClick(){
+    console.log(this.selectedCategoryID);
+    this.medicationService.deleteCategory(this.selectedCategoryID).subscribe((response) => {
+
+      this.router.navigate(['tabs/tab1/categories/:categoryId'])
+
+    });
+  }
 
 }
