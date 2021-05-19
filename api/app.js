@@ -8,6 +8,9 @@ const bodyParser = require('body-parser');
 //load in the mongoose models:
 const { Category, Medication, User } = require('./db/models');
 
+
+const jwt = require('jsonwebtoken');
+
 /* MIDDLEWARE  */
 
 // Load express middleware
@@ -109,26 +112,30 @@ let verifySession = (req, res, next) => {
 // })
 
 
-app.get('/categories', (req, res) => {
+//we add "authenticate", because every user should be able to see only his categories
+app.get('/categories', authenticate, (req, res) => {
     //return an array of all of the categories in the database
 
     //we want to find all of the categories, so we leave the condition {} empty:
     //after creating the mongoose.js file:
-    Category.find({}).then((categories) => {
+    Category.find({
+        _userId: req.user_id
+    }).then((categories) => {
         res.send(categories);
     }).catch((e)=>{
         res.send(e);
     });
 });
 
-app.post('/categories', (req, res) => {
+app.post('/categories', authenticate, (req, res) => {
     //create a new category and return the new category document back to the user (which includes the id)
     //the category information fields will be passed with JSON request body
 
     let title = req.body.title;
 
     let newCategory = new Category({
-        title
+        title,
+        _userId: req.user_id
     });
 
     newCategory.save().then((categoryDoc) => {
@@ -137,10 +144,10 @@ app.post('/categories', (req, res) => {
     });
 });
 
-app.patch('/categories/:id', (req, res) => {
+app.patch('/categories/:id', authenticate, (req, res) => {
     //for updating the specified category
 
-    Category.findOneAndUpdate({ _id: req.params.id }, {
+    Category.findOneAndUpdate({ _id: req.params.id, _userId: req.user_id }, {
         $set: req.body   //$set is a MongoDB keyword
     }).then(() => {
         //there is no need to send back the whole document, only a message is enough
@@ -148,22 +155,22 @@ app.patch('/categories/:id', (req, res) => {
     });
 });
 
-app.delete('/categories/:id', (req, res) => {
+app.delete('/categories/:id', authenticate, (req, res) => {
     //for deleting the specified category
     Category.findOneAndRemove({
         _id: req.params.id,
-        // _userId: req.user_id
+        _userId: req.user_id
     }).then((removedCategoryDoc) => {
         res.send(removedCategoryDoc);
 
-        // // delete all the tasks that are in the deleted list
-        // deleteTasksFromList(removedListDoc._id);
+        // // delete all the medications that are in the deleted category
+        deleteMedicationsFromCategory(removedCategoryDoc._id);
     })
 });
 
 // /* MEDICATION ROUTES */
 
-app.get('/categories/:categoryId/medications', (req, res) => {
+app.get('/categories/:categoryId/medications', authenticate, (req, res) => {
     // We want to return all medications that belong to a specific category (specified by categoryId)
     Medication.find({
         _categoryId: req.params.categoryId
@@ -186,46 +193,99 @@ app.get('/categories/:categoryId/medications/:medicationId', (req, res) => {
 });
 
 
-app.post('/categories/:categoryId/medications', (req, res) => {
+app.post('/categories/:categoryId/medications', authenticate, (req, res) => {
     // We want to create a new medication in a category specified by categoryId
 
+    Category.findOne({
+        _id: req.params.categoryId,
+        _userId: req.user_id
+    }).then((category) => {
+        if (category) {
+            // category object with the specified conditions was found
+            // therefore the currently authenticated user can create new medications
+            return true;
+        }
 
-    let newMedication = new Medication({
-        title: req.body.title,
-        _categoryId: req.params.categoryId
-    });
-    newMedication.save().then((newMedDoc) => {
-        res.send(newMedDoc);
-
+        // else - the category object is undefined
+        return false;
+    }).then((canCreateMedication) => {
+        if (canCreateMedication) {
+            let newMedication = new Medication({
+                title: req.body.title,
+                _categoryId: req.params.categoryId
+            });
+            newMedication.save().then((newMedicationDoc) => {
+                res.send(newMedicationDoc);
+            })
+        } else {
+            res.sendStatus(404);
+        }
     })
 })
 
-app.patch('/categories/:categoryId/medications/:medicationId', (req, res) => {
+app.patch('/categories/:categoryId/medications/:medicationId', authenticate, (req, res) => {
     // We want to update an existing medication (specified by medicationId)
 
-    Medication.findOneAndUpdate({
-        //giving the id of the category as well as the id of the medication
-        _id: req.params.medicationId,
-        _categoryId: req.params.categoryId
-    }, {
-        $set: req.body
-    }
-    ).then(() => {
-        res.send({ message: 'Updated successfully.' })
+    Category.findOne({
+        _id: req.params.categoryId,
+        _userId: req.user_id
+    }).then((category) => {
+        if (category) {
+            // category object with the specified conditions was found
+            // therefore the currently authenticated user can make updates to medications within this category
+            return true;
+        }
+
+        // else - the category object is undefined
+        return false;
+    }).then((canUpdateMedications) => {
+        if (canUpdateMedications) {
+            // the currently authenticated user can update medications
+            Medication.findOneAndUpdate({
+                _id: req.params.medicationId,
+                _categoryId: req.params.categoryId
+            }, {
+                    $set: req.body
+                }
+            ).then(() => {
+                res.send({ message: 'Updated successfully.' })
+            })
+        } else {
+            res.sendStatus(404);
+        }
     })
 
 });
 
 
-app.delete('/categories/:categoryId/medications/:medicationId', (req, res) => {
+app.delete('/categories/:categoryId/medications/:medicationId', authenticate, (req, res) => {
 
-    Medication.findOneAndRemove({
-        // categoryId and medicationId are from the url above
-        _id: req.params.medicationId,
-        _categoryId: req.params.categoryId
-    }).then((removedMedDoc) => {
-        res.send(removedMedDoc);
-    })
+    Category.findOne({
+        _id: req.params.categoryId,
+        _userId: req.user_id
+    }).then((category) => {
+        if (category) {
+            // category object with the specified conditions was found
+            // therefore the currently authenticated user can make updates to medications within this category
+            return true;
+        }
+
+        // else - the category object is undefined
+        return false;
+    }).then((canDeleteMedications) => {
+        
+        if (canDeleteMedications) {
+            Medication.findOneAndRemove({
+                // categoryId and medicationId are from the url above
+                _id: req.params.medicationId,
+                _categoryId: req.params.categoryId
+            }).then((removedMedDoc) => {
+                res.send(removedMedDoc);
+            })
+        } else {
+            res.sendStatus(404);
+        }
+    });
 
 });
 
@@ -305,6 +365,18 @@ app.delete('/categories/:categoryId/medications/:medicationId', (req, res) => {
         res.status(400).send(e);
     });
 })
+
+
+/* HELPER METHODS */
+let deleteMedicationsFromCategory = (_categoryId) => {
+    //deleteMany method from mongoose
+    Medication.deleteMany({
+        _categoryId
+    }).then(() => {
+        console.log("Medications from " + _categoryId + " were deleted!");
+    })
+}
+
 
 
 

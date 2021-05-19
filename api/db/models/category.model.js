@@ -8,6 +8,12 @@ const CategorySchema = new mongoose.Schema({
         //so that the white space on both ends of the string is trimmed:
         trim: true
     },
+    // with auth
+    _userId: {
+        type: mongoose.Types.ObjectId,
+        required: true
+    }
+
     
 
 })
