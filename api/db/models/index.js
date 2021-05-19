@@ -2,8 +2,10 @@
 
 const { Category } = require('./category.model');
 const { Medication } = require('./medication.model');
+const { User } = require('./user.model');
 
 module.exports = {
     Category,
     Medication,
+    User
 }
