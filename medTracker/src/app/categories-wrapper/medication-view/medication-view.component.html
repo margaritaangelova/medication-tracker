@@ -4,7 +4,7 @@
           <p>{{ medication.title }}</p>
         </div>
         <div class="medication-buttons">
-          <button class="button">
+          <button class="button" [routerLink]="['./edit-medication', medication._id]">
             <img class="edit-button-image" title="Edit medication"
               src="../../assets/154-1541056_edit-edit-icon-svg-hd-png-download.png">
           </button>

@@ -23,7 +23,7 @@ export class EditCategoryComponent implements OnInit, OnDestroy {
     this.subsciption = this.route.params.subscribe(
       (params: Params) => {
         this.categoryId = params.categoryId;
-        console.log(params);
+        // console.log(params);
         
       }
     )

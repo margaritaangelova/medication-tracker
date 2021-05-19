@@ -25,10 +25,10 @@ export class MedicationService {
     return this.webReqService.patch(`categories/${id}`, { title });
   }
 
-  // updateTask(listId: string,taskId: string, title: string) {
-  //   // We want to send a web request to create a list
-  //   return this.webReqService.patch(`lists/${listId}/tasks/${taskId}`, { title });
-  // }
+  updateMedication(categoryId: string, medicationId: string, title: string, frequency: number, intakeTime: number) {
+    // We want to send a web request to create a list
+    return this.webReqService.patch(`categories/${categoryId}/medications/${medicationId}`, { title, frequency, intakeTime });
+  }
 
 
   deleteCategory(id: string){
@@ -45,9 +45,9 @@ export class MedicationService {
     return this.webReqService.get(`categories/${categoryId}/medications`);
   }
 
-  // getTask(listId: string, taskId: string){
-  //   return this.webReqService.get(`lists/${listId}/tasks/${taskId}`);
-  // }
+  getMedication(categoryId: string, medicationId: string){
+    return this.webReqService.get(`categories/${categoryId}/medications/${medicationId}`);
+  }
 
   
 

@@ -29,7 +29,6 @@ export class CategoryViewComponent implements OnInit {
     this.router.navigateByUrl(`tabs/tab1/categories/${categoryId}`);
 
     this.selectedCategoryID = categoryId;
-    console.log(this.selectedCategoryID);
     
     
     //getting the medications for the selected category:
