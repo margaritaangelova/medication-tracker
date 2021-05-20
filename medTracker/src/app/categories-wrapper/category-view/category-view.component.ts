@@ -2,6 +2,8 @@ import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth.service';
+import { Category } from 'src/app/models/category.model';
+import { Medication } from 'src/app/models/medication.model';
 import { MedicationService } from '../../medication.service';
 
 @Component({
@@ -11,8 +13,8 @@ import { MedicationService } from '../../medication.service';
 })
 export class CategoryViewComponent implements OnInit {
   selectedCategoryID: string;
-  categoriesArray: any[] = [];
-  medications: any[];
+  categoriesArray: Category[] = [];
+  medications: Medication[];
 
   @Output() medicationsEmitter: EventEmitter<any> = new EventEmitter<any>();
 

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Medication } from './models/medication.model';
 import { WebRequestService } from './web-request.service';
 
 @Injectable({
@@ -56,10 +57,10 @@ export class MedicationService {
     return this.webReqService.post(`categories/${categoryId}/medications`, { title, categoryId, frequency, intakeTime });
   }
 
-  // complete(task: Task){
-  //   return this.webReqService.patch(`lists/${task._listId}/tasks/${task._id}`, {
-  //     //set the boolean to the opposite of the previous state (to toggle the completed)
-  //     completed: !task.completed
-  //   })
-  // }
+  complete(medication: Medication){
+    return this.webReqService.patch(`categories/${medication._categoryId}/medications/${medication._id}`, {
+      //set the boolean to the opposite of the previous state (to toggle the completed)
+      completed: !medication.completed
+    })
+  }
 }

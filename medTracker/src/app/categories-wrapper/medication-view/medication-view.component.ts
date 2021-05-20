@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router, NavigationEnd, ParamMap } from '@angular/router';
 import { MedicationService } from 'src/app/medication.service';
+import { Medication } from 'src/app/models/medication.model';
 
 @Component({
   selector: 'app-medication-view',
@@ -8,7 +9,7 @@ import { MedicationService } from 'src/app/medication.service';
   styleUrls: ['./medication-view.component.scss'],
 })
 export class MedicationViewComponent implements OnInit {
-  @Input() medications: any[];
+  @Input() medications: Medication[];
 
   
   constructor(private medicationService: MedicationService, private route: ActivatedRoute) { }
@@ -35,6 +36,16 @@ export class MedicationViewComponent implements OnInit {
     this.medicationService.deleteMedication(this.categoryId, id).subscribe(() => {
       this.medications = this.medications.filter(val => val._id !== id);
     });
+  }
+
+  onMedicationClick(medication: Medication){
+    // set the medication to completed
+    this.medicationService.complete(medication).subscribe(() => {
+      console.log('Completd successfully!');
+      medication.completed = !medication.completed;
+      
+    });
+    
   }
   
 
