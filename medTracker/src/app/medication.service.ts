@@ -35,10 +35,10 @@ export class MedicationService {
     return this.webReqService.delete(`categories/${id}`);
   }
 
-  // deleteTask(listId: string, taskId: string){
-  //   return this.webReqService.delete(`lists/${listId}/tasks/${taskId}`);
+  deleteMedication(categoryId: string, medicationId: string){
+    return this.webReqService.delete(`categories/${categoryId}/medications/${medicationId}`);
 
-  // }
+  }
 
   getMedications(categoryId: string) {
 
