@@ -1,4 +1,4 @@
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { ExploreContainerComponentModule } from './explore-container/explore-container.module';
 import { TabsPageModule } from './tabs/tabs.module';
 import { RouterModule } from '@angular/router';
+import { WebReqInterceptor } from './web-req.interceptor.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,7 +24,9 @@ import { RouterModule } from '@angular/router';
     // TabsPageModule,
     RouterModule,
   ],
-  providers: [{ 
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: WebReqInterceptor, multi: true },
+    { 
     provide: RouteReuseStrategy, 
     useClass: IonicRouteStrategy 
   }],
