@@ -18,12 +18,17 @@
         </span>
       </p>
     </div>
-    <div class="field">
-      <p class="control">
-        <button class="button is-success is-pulled-right" (click)="onLoginButtonClicked(emailInput.value, passwordInput.value)">
+    <div class="field" style="display: flex; justify-content: flex-end;">
+     
+        <button class="button is-success" style="width: 100%;" (click)="onLoginButtonClicked(emailInput.value, passwordInput.value)">
           Login
         </button>
-      </p>
+    
     </div>
+
+    <br>
+
+    <p class="has-text-grey" style="text-align: center;">Don't have an account? <a class="has-text-primary" routerLink="/register">Register</a></p>
+
   </div>
 </div>

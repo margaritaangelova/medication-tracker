@@ -1,5 +1,7 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { AuthService } from 'src/app/auth.service';
 import { MedicationService } from '../../medication.service';
 
 @Component({
@@ -14,7 +16,7 @@ export class CategoryViewComponent implements OnInit {
 
   @Output() medicationsEmitter: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private medicationService: MedicationService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private medicationService: MedicationService, private route: ActivatedRoute, private router: Router, private authservice: AuthService) { }
 
   ngOnInit() {
     this.medicationService.getCategories().subscribe((categories: any) => {
@@ -70,7 +72,6 @@ export class CategoryViewComponent implements OnInit {
     // console.log(this.medicationsFromChild);
     
   }
-
 
   onDeleteCategoryClick(){
     console.log(this.selectedCategoryID);
