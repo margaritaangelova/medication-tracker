@@ -13,13 +13,15 @@ export class MedicationViewComponent implements OnInit {
   
   constructor(private medicationService: MedicationService, private route: ActivatedRoute) { }
 
+  categoryId: string;
+
   ngOnInit() {
 
     this.route.paramMap.subscribe(
       (params: ParamMap) => {
-        const categoryId: string = params.get('categoryId');
+        this.categoryId = params.get('categoryId');
         
-        this.medicationService.getMedications(categoryId).subscribe((medications: any) => {
+        this.medicationService.getMedications(this.categoryId).subscribe((medications: any) => {
           this.medications = medications;
     
           
@@ -27,6 +29,12 @@ export class MedicationViewComponent implements OnInit {
 
       }
     )
+  }
+
+  onMedicationDeleteCick(id: string){
+    this.medicationService.deleteMedication(this.categoryId, id).subscribe(() => {
+      this.medications = this.medications.filter(val => val._id !== id);
+    });
   }
   
 

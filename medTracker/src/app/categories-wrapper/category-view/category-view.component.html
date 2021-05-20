@@ -3,17 +3,19 @@
     <div class="sidebar">
       <h1 class="title">Categories</h1>
 
-      <div class="d-flex">
+      <br>
+
+      <div class="d-flex" style="display: block">
         <div>
 
           <a class="category-menu-item" *ngFor="let category of categoriesArray" (click)="onCategoryClick(category._id)"
-            [ngClass]="{ 'is-active': category._id===selectedCategoryID }">
+            [ngClass]="{ 'is-active': router.url.includes(category._id) }">
 
             <p>{{ category.title }}</p>
           </a>
         </div>
       </div>
-      <button class="button is-primary has-text-white" routerLink="/new-category">+ New Category</button>
+      <button class="button is-primary has-text-white" style="margin-top: auto;" routerLink="/new-category">+ New Category</button>
     </div>
 
 
