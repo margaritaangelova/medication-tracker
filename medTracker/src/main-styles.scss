@@ -198,7 +198,7 @@ a{
     }
     
     //only the text should have a "line-through" decoration
-    &.completed.medication-text  {
+    &.completed  {
         text-decoration: line-through;
         opacity: 80%;
     }

@@ -22,8 +22,7 @@ const MedicationSchema = new mongoose.Schema({
         default: 1,
     },
     intakeTime: {
-        type: Number,
-        default: 8,
+        type: Number
     },
     completed: {
         type: Boolean,
