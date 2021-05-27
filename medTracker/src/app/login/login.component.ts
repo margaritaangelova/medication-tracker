@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
 
   onLoginButtonClicked(email: string, password: string){
+    debugger;
     this.authservice.login(email, password).subscribe((res: HttpResponse<any>)=> {
       if (res.status === 200) {
         // we have logged in successfully
