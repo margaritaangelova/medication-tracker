@@ -24,6 +24,9 @@ export class MedicationViewComponent implements OnInit {
         
         this.medicationService.getMedications(this.categoryId).subscribe((medications: any) => {
           this.medications = medications;
+
+          console.log(medications.length);
+          
     
           
         });

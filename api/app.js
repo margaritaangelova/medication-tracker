@@ -340,13 +340,19 @@ app.delete('/categories/:categoryId/medications/:medicationId', authenticate, (r
             return user.generateAccessAuthToken().then((accessToken) => {
                 // access auth token generated successfully, now we return an object containing the auth tokens
                 return { accessToken, refreshToken }
+            },(error)=> {
+                res.status(400).send(error);
             });
+        },(error)=> {
+            res.status(400).send(error);
         }).then((authTokens) => {
             // Now we construct and send the response to the user with their auth tokens in the header and the user object in the body
             res
                 .header('x-refresh-token', authTokens.refreshToken)
                 .header('x-access-token', authTokens.accessToken)
                 .send(user);
+        },(error)=> {
+            res.status(400).send(error);
         })
     }).catch((e) => {
         res.status(400).send(e);
