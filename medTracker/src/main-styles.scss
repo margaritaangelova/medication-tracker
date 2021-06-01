@@ -63,6 +63,7 @@ a{
 
 .medication-manager-container{
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -76,12 +77,13 @@ a{
     display: flex;
     flex-direction: column;
 
-    width: 300px;
+    
     background: white;
     padding: 42px;
 
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
+    
 }
 
 .medications-container{
@@ -91,7 +93,7 @@ a{
     flex-grow: 1;
     flex-direction: column;
 
-    padding: 42px;
+    padding: 30px;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
 
@@ -110,6 +112,7 @@ a{
     font-size: 24px;
     text-transform: uppercase;
     letter-spacing: 2px;
+    margin-top: 20px;
 }
 
 .category-menu{
@@ -240,4 +243,18 @@ a{
 
     width: 350px;
     max-width: 350px;
+}
+
+@media(min-width: 768px){
+    .outerDiv{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    
+        margin: auto;
+       
+        margin-top: 75px;
+        width: 900px;
+        height: 600px;
+    }
 }
