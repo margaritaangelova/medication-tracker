@@ -26,9 +26,9 @@ export class MedicationService {
     return this.webReqService.patch(`categories/${id}`, { title });
   }
 
-  updateMedication(categoryId: string, medicationId: string, title: string, frequency: number, intakeTime: number) {
+  updateMedication(categoryId: string, medicationId: string, title: string, intakeHour: number, intakeMinutes: number) {
     // We want to send a web request to create a list
-    return this.webReqService.patch(`categories/${categoryId}/medications/${medicationId}`, { title, frequency, intakeTime });
+    return this.webReqService.patch(`categories/${categoryId}/medications/${medicationId}`, { title, intakeHour, intakeMinutes });
   }
 
 
@@ -52,9 +52,9 @@ export class MedicationService {
 
   
 
-  createMedication(title: string, categoryId: string, frequency: number, intakeTime: number) {
+  createMedication(title: string, categoryId: string, intakeHour: number, intakeMinutes: number) {
     // We want to send a web request to create a medication
-    return this.webReqService.post(`categories/${categoryId}/medications`, { title, categoryId, frequency, intakeTime });
+    return this.webReqService.post(`categories/${categoryId}/medications`, { title, intakeHour, intakeMinutes });
   }
 
   complete(medication: Medication){

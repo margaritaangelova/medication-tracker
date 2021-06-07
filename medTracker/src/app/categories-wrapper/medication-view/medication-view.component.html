@@ -5,7 +5,7 @@
           <i class="fas fa-check-circle fa-stack-2x fa-inverse" style="color: rgb(21, 255, 185);"></i>
         </span>
         <div class="medication-text">
-          <p>{{ medication.intakeTime }}:00 - {{ medication.title }}</p>
+          <p>{{ medication.intakeHour }}:{{ medication.intakeMinutes }} - {{ medication.title }}</p>
         </div>
         <div class="medication-buttons">
           <button class="button" [routerLink]="['./edit-medication', medication._id]">

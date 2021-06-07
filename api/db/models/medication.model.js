@@ -13,16 +13,17 @@ const MedicationSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         required: true
     },
-    frequency: {
-        type: String,
-        default: 'Every day',
-    },
     timesADay: {
         type: Number,
         default: 1,
     },
-    intakeTime: {
-        type: Number
+    intakeHour: {
+        type: Number,
+
+    },
+    intakeMinutes: {
+        type: Number,
+
     },
     completed: {
         type: Boolean,

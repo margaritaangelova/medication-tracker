@@ -5,15 +5,16 @@
 
     <input #medicationTitleInput class="input has-background-light is-medium" type="text" value="{{ medication?.title }}">
     <br><br>
-    <input #frequency class="input has-background-light is-medium" type="text" value="{{ medication?.frequency }}">
+    <p>Change the intake time</p>
+    <input #intakeHour class="input has-background-light is-medium" type="text" value="{{ medication?.intakeHour }}">
     <br><br>
-    <input #intakeTime class="input has-background-light is-medium" type="text" value="{{ medication?.intakeTime }}">
+    <input #intakeMinutes class="input has-background-light is-medium" type="text" value="{{ medication?.intakeMinutes }}">
     <br><br>
     
     <div class="buttons is-right">
       <button class="button is-medium" (click)="goBack()">Cancel</button>
       <button class="button is-primary is-medium  has-text-white"
-        (click)="updateMedication(medicationTitleInput.value, frequency.value, intakeTime.value)">Save</button>
+        (click)="updateMedication(medicationTitleInput.value, intakeHour.value, intakeMinutes.value)">Save</button>
     </div>
 
 
