@@ -5,15 +5,16 @@
     <!-- Bulma input -->
     <input #medicationTitleInput class="input has-background-light is-medium" type="text" placeholder="Enter medication name...">
     <br><br>
-    <input #frequency class="input has-background-light is-medium" type="text" placeholder="Enter intake frequency...">
+    <p>Set the intake time!</p>
+    <input #intakeHour class="input has-background-light is-medium" type="text" placeholder="Enter intake hour...">
     <br><br>
-    <input #intakeTime class="input has-background-light is-medium" type="text" placeholder="Set time for intake...">
+    <input #intakeMinutes class="input has-background-light is-medium" type="text" placeholder="Enter intake minutes...">
     <br><br>
 
     <div class="buttons is-right">
       <button class="button is-medium" (click)="goBack()">Cancel</button>
       <button class="button is-primary is-medium  has-text-white"
-        (click)="createMedication(medicationTitleInput.value, frequency.value, intakeTime.value)">Create</button>
+        (click)="createMedication(medicationTitleInput.value, intakeHour.value, intakeMinutes.value)">Create</button>
     </div>
 
 

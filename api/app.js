@@ -1,15 +1,133 @@
 const express = require('express');
 const app = express();
+const http = require('http');
+const server = http.createServer(app);
+// const { Server } = require("socket.io");
+
+// const { Server } = require("socket.io")(server, {
+//     cors: {
+//       origin: '*',
+//     }
+// });
+
+const io = require('socket.io')(server, {
+    cors: {
+      origin: '*',
+    }
+  });
+
+// const io = new Server(server);
+
+const schedule = require('node-schedule');
+
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.html');
+});
 
 const mongoose = require('./db/mongoose');
-
 const bodyParser = require('body-parser');
 
 //load in the mongoose models:
 const { Category, Medication, User } = require('./db/models');
 
-
 const jwt = require('jsonwebtoken');
+
+io.on('connection', (socket) => {
+    console.log('a user connected');
+    socket.on('disconnect', () => {
+      console.log('user disconnected');
+    });
+
+    //should be user specified:
+    let timeVar = 4;
+
+
+    // catch the event from client
+    // socket.on('medicationIntakeTime', (msg) => {
+        
+    //     schedule.scheduleJob(` 0 */${msg} * * *`, () => {
+    //         io.emit('notification', msg);
+    //     });
+        
+        
+    //   });
+
+      socket.on('medicationIntakeTime', (msg) => {
+        let intakeMinutes = msg[Object.keys(msg)[1]];
+        let intakeHour = msg[Object.keys(msg)[0]];
+
+        
+        schedule.scheduleJob(`*/${intakeMinutes} */${intakeHour} * * *`, () => {
+            io.emit('notification', msg);
+        });
+        
+        
+      });
+  });
+
+// io.on('connection', function(socket) {
+//     console.log("New WS connection..");
+
+// // 	// emit an event to the client, the object can contain anything, it can be any type too
+// // 	io.emit('MyWebSocketServerEvent', { info: 'got your connection!' });
+
+// // 	// listen for this client event
+// // 	socket.on('MyWebSocketClientEvent', (msg) => {
+// //   	// message received from client, do something
+// //     console.log(msg);
+// // 	});
+
+// //   socket.on('disconnect', function() {
+// //     // handle clean up of socket if needed
+// //   });
+// });
+
+// var WebSocketServer = require('ws').Server
+//   , wss = new WebSocketServer({ port: 9090 });
+
+// // Start REST server on port 8081
+// var server = app.listen(8081, function () {
+//   var host = server.address().address
+//   var port = server.address().port
+//   console.log("Websocket event broadcaster REST API listening on http://%s:%s", host, port)
+// });
+
+// const socket_io = require("socket.io");
+// let io = socket_io(server);
+
+
+// let socket = io();
+
+// // listen for this server event
+// socket.on('MyWebSocketServerEvent', function(msg) {
+//   // message received from server, do something
+//   console.log(msg);
+// });
+
+// // emit an event to the server, the object can contain anything, it can be any type too
+// socket.emit('MyWebSocketClientEvent', { data: 'just set up web sockets!'});
+
+// // import the SocketIO library
+// const socketio = require('socket.io');
+
+// // SocketIO requires an http server. If we pass in a port number, it uses NodeJS' default http library
+// const io = socketio(80);
+
+// io.on('connection', function(socket) {
+
+// 	// emit an event to the client, the object can contain anything, it can be any type too
+// 	io.emit('MyWebSocketServerEvent', { info: 'got your connection, thanks' });
+
+// 	// listen for this client event
+// 	socket.on('MyWebSocketClientEvent', (msg) => {
+//   	// message received from client, do something
+//     console.log(msg);
+// 	});
+
+//   socket.on('disconnect', function() {
+//     // handle clean up of socket if needed
+//   });
+// });
 
 /* MIDDLEWARE  */
 
@@ -122,7 +240,7 @@ app.get('/categories', authenticate, (req, res) => {
         _userId: req.user_id
     }).then((categories) => {
         res.send(categories);
-    }).catch((e)=>{
+    }).catch((e) => {
         res.send(e);
     });
 });
@@ -185,8 +303,8 @@ app.get('/categories/:categoryId/medications/:medicationId', (req, res) => {
         _id: req.params.medicationId,
         _categoryId: req.params.categoryId
     }).then((medication) => {
-        if(medication){
-            res.send(medication.length?medication[0]:medication);
+        if (medication) {
+            res.send(medication.length ? medication[0] : medication);
         }
         res.send(null);
     })
@@ -245,8 +363,8 @@ app.patch('/categories/:categoryId/medications/:medicationId', authenticate, (re
                 _id: req.params.medicationId,
                 _categoryId: req.params.categoryId
             }, {
-                    $set: req.body
-                }
+                $set: req.body
+            }
             ).then(() => {
                 res.send({ message: 'Updated successfully.' })
             })
@@ -273,7 +391,7 @@ app.delete('/categories/:categoryId/medications/:medicationId', authenticate, (r
         // else - the category object is undefined
         return false;
     }).then((canDeleteMedications) => {
-        
+
         if (canDeleteMedications) {
             Medication.findOneAndRemove({
                 // categoryId and medicationId are from the url above
@@ -297,7 +415,7 @@ app.delete('/categories/:categoryId/medications/:medicationId', authenticate, (r
  * POST /users
  * Purpose: Sign up
  */
- app.post('/users', (req, res) => {
+app.post('/users', (req, res) => {
     // User sign up
 
     let body = req.body;
@@ -328,7 +446,7 @@ app.delete('/categories/:categoryId/medications/:medicationId', authenticate, (r
  * POST /users/login
  * Purpose: Login
  */
- app.post('/users/login', (req, res) => {
+app.post('/users/login', (req, res) => {
     let email = req.body.email;
     let password = req.body.password;
 
@@ -340,10 +458,10 @@ app.delete('/categories/:categoryId/medications/:medicationId', authenticate, (r
             return user.generateAccessAuthToken().then((accessToken) => {
                 // access auth token generated successfully, now we return an object containing the auth tokens
                 return { accessToken, refreshToken }
-            },(error)=> {
+            }, (error) => {
                 res.status(400).send(error);
             });
-        },(error)=> {
+        }, (error) => {
             res.status(400).send(error);
         }).then((authTokens) => {
             // Now we construct and send the response to the user with their auth tokens in the header and the user object in the body
@@ -351,7 +469,7 @@ app.delete('/categories/:categoryId/medications/:medicationId', authenticate, (r
                 .header('x-refresh-token', authTokens.refreshToken)
                 .header('x-access-token', authTokens.accessToken)
                 .send(user);
-        },(error)=> {
+        }, (error) => {
             res.status(400).send(error);
         })
     }).catch((e) => {
@@ -363,7 +481,7 @@ app.delete('/categories/:categoryId/medications/:medicationId', authenticate, (r
  * GET /users/me/access-token
  * Purpose: generates and returns an access token
  */
- app.get('/users/me/access-token', verifySession, (req, res) => {
+app.get('/users/me/access-token', verifySession, (req, res) => {
     // we know that the user/caller is authenticated and we have the user_id and user object available to us
     req.userObject.generateAccessAuthToken().then((accessToken) => {
         res.header('x-access-token', accessToken).send({ accessToken });
@@ -384,8 +502,6 @@ let deleteMedicationsFromCategory = (_categoryId) => {
 }
 
 
-
-
-app.listen(3000, () => {
+server.listen(3000, () => {
     console.log('Server is listening on port 3000');
 })
