@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MedicationService } from '../medication.service';
 import { CategoryViewComponent } from './category-view/category-view.component';
 import { io } from 'socket.io-client';
+import { registerLocaleData } from '@angular/common';
 
 @Component({
   selector: 'app-categories-wrapper',
@@ -24,6 +25,7 @@ export class CategoriesWrapperComponent implements OnInit, AfterViewInit {
 
   constructor(private medicationService: MedicationService, private route: ActivatedRoute, private router: Router) {
     this.socket = io('http://localhost:3000');
+    // this.socket = io('http://10.0.2.2:3000');
    }
 
   ngOnInit() {
@@ -32,6 +34,9 @@ export class CategoriesWrapperComponent implements OnInit, AfterViewInit {
     //   this.categoriesArray = categories;
 
     // })
+
+    Notification.requestPermission();
+    
   }
 
   ngAfterViewInit() {
@@ -43,10 +48,17 @@ export class CategoriesWrapperComponent implements OnInit, AfterViewInit {
     // console.log(this.selectedCategoryID);
 
     this.socket.on('notification', function (msg) {
-      let intakeMinutes = msg[Object.keys(msg)[1]];
+        let intakeMinutes = msg[Object.keys(msg)[1]];
         let intakeHour = msg[Object.keys(msg)[0]];
+        let medicationName = msg[Object.keys(msg)[2]];
+        
 
-      window.alert("Time to take your medication at: " + intakeHour +":" + intakeMinutes + " o'clock")
+
+        let img = "../../assets/medicine.png";
+        let text = "Time to take your medication: " + medicationName;
+        const n = new Notification('Medication Tracker', { body: text, icon: img });
+        // alert("Time to take your medication at: " + intakeHour +":" + intakeMinutes + " o'clock");
+        
     });
 
 

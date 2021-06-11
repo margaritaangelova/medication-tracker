@@ -76,7 +76,6 @@ export class CategoryViewComponent implements OnInit {
   }
 
   onDeleteCategoryClick(){
-    console.log(this.selectedCategoryID);
     this.medicationService.deleteCategory(this.selectedCategoryID).subscribe((response) => {
 
       this.router.navigate(['tabs/tab1/categories/:categoryId'])

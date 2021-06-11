@@ -1,17 +1,39 @@
-<!-- <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      History
-    </ion-title>
-  </ion-toolbar>
-</ion-header> -->
 
 <ion-content [fullscreen]="true">
-  <!-- <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">History</ion-title>
-    </ion-toolbar>
-  </ion-header> -->
+  
+  <div class="container" >
+    <div class="wrapper">
+      <h1> Your intake history: </h1>
+      <ul class="sessions" >
+        <!-- <li>
+          <div class="time">09.06.2021</div>
+          <p>First medication:  09:00 </p>
+          <p>Second medication: 22:30</p>
+        </li>
+       
+        <li>
+          <div class="time">08.06.2021</div>
+          <p>First medication:  09:00 </p>
+          <p>Second medication: 22:30</p>
+        </li>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+        <li>
+          <div class="time">07.06.2021</div>
+          <p>First medication:  09:00 </p>
+          <p>Second medication: 22:30</p>
+        </li> -->
+
+        <li *ngFor="let historyElement of historyElements">
+          <div class="time">{{historyElement.date}}</div>
+          <div *ngFor="let med of historyElement.takenMedications">
+
+            <p>{{med.medicationName}} (taken at {{med.intakeHour}}:{{med.intakeMinutes}} )</p>
+          </div>
+         
+        </li>
+        
+      </ul>
+    </div>
+  </div> 
+  
 </ion-content>

@@ -57,6 +57,16 @@ export class MedicationService {
     return this.webReqService.post(`categories/${categoryId}/medications`, { title, intakeHour, intakeMinutes });
   }
 
+  getHistory() {
+    
+    return this.webReqService.get('history');
+  }
+
+  createHistory(date: string, medicationName: string, intakeHour: number, intakeMinutes: number) {
+    // We want to send a web request to create a category
+    return this.webReqService.post('history', { date, medicationName, intakeHour, intakeMinutes});
+  }
+
   complete(medication: Medication){
     return this.webReqService.patch(`categories/${medication._categoryId}/medications/${medication._id}`, {
       //set the boolean to the opposite of the previous state (to toggle the completed)

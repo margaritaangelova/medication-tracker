@@ -12,7 +12,7 @@ export class MedicationViewComponent implements OnInit {
   @Input() medications: Medication[];
 
   
-  constructor(private medicationService: MedicationService, private route: ActivatedRoute) { }
+  constructor(private medicationService: MedicationService, private route: ActivatedRoute, private router: Router) { }
 
   categoryId: string;
 
@@ -24,7 +24,6 @@ export class MedicationViewComponent implements OnInit {
         
         this.medicationService.getMedications(this.categoryId).subscribe((medications: any) => {
           this.medications = medications;
-          console.log(this.medications);
           
           
         });
@@ -40,12 +39,24 @@ export class MedicationViewComponent implements OnInit {
   }
 
   onMedicationClick(medication: Medication){
+    
     // set the medication to completed
     this.medicationService.complete(medication).subscribe(() => {
-      console.log('Completd successfully!');
       medication.completed = !medication.completed;
       
     });
+
+    let currentDate  = new Date();
+    let date = currentDate.toLocaleDateString();
+    let hours = currentDate.getHours();
+    let minutes = currentDate.getMinutes();
+    
+    // console.log(`${date} at ${hours}:${minutes}`);
+
+    this.medicationService.createHistory(date, medication.title, hours, minutes).subscribe(() => {
+      
+    });
+
     
   }
   
