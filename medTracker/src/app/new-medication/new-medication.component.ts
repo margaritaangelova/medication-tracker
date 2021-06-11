@@ -16,6 +16,7 @@ export class NewMedicationComponent implements OnInit {
 
   constructor(private medicationService: MedicationService, private route: ActivatedRoute, private router: Router,  private location: Location) {
     this.socket = io('http://localhost:3000');
+    // this.socket = io('http://10.0.2.2:3000');
    }
 
   categoryId: string;
@@ -47,13 +48,14 @@ export class NewMedicationComponent implements OnInit {
   }
 
   createMedication(title: string, intakeHour: number, intakeMinutes: number) {
-    this.medicationService.createMedication(title, this.categoryId, intakeHour, intakeMinutes).subscribe((newMedication: Medication) => { 
+    this.medicationService.createMedication(title, this.categoryId, intakeHour, intakeMinutes).subscribe(() => { 
       
       //we can use relative routing here (../):
       this.router.navigate([ 'tabs/tab1/categories', this.categoryId]);
+      
     });
 
-    this.msg = {hour: intakeHour, minutes: intakeMinutes};
+    this.msg = {hour: intakeHour, minutes: intakeMinutes, medicationName: title};
 
     this.socket.emit('medicationIntakeTime', this.msg);
   }

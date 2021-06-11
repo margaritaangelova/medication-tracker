@@ -12,9 +12,9 @@ const server = http.createServer(app);
 
 const io = require('socket.io')(server, {
     cors: {
-      origin: '*',
+        origin: '*',
     }
-  });
+});
 
 // const io = new Server(server);
 
@@ -28,42 +28,28 @@ const mongoose = require('./db/mongoose');
 const bodyParser = require('body-parser');
 
 //load in the mongoose models:
-const { Category, Medication, User } = require('./db/models');
+const { Category, Medication, User, History } = require('./db/models');
 
 const jwt = require('jsonwebtoken');
 
 io.on('connection', (socket) => {
     console.log('a user connected');
     socket.on('disconnect', () => {
-      console.log('user disconnected');
+        console.log('user disconnected');
     });
 
-    //should be user specified:
-    let timeVar = 4;
-
-
-    // catch the event from client
-    // socket.on('medicationIntakeTime', (msg) => {
-        
-    //     schedule.scheduleJob(` 0 */${msg} * * *`, () => {
-    //         io.emit('notification', msg);
-    //     });
-        
-        
-    //   });
-
-      socket.on('medicationIntakeTime', (msg) => {
-        let intakeMinutes = msg[Object.keys(msg)[1]];
+    socket.on('medicationIntakeTime', (msg) => {
         let intakeHour = msg[Object.keys(msg)[0]];
+        let intakeMinutes = msg[Object.keys(msg)[1]];
 
-        
-        schedule.scheduleJob(`*/${intakeMinutes} */${intakeHour} * * *`, () => {
+
+        schedule.scheduleJob(`${intakeMinutes} ${intakeHour} * * *`, () => {
             io.emit('notification', msg);
         });
-        
-        
-      });
-  });
+
+
+    });
+});
 
 // io.on('connection', function(socket) {
 //     console.log("New WS connection..");
@@ -330,8 +316,11 @@ app.post('/categories/:categoryId/medications', authenticate, (req, res) => {
         if (canCreateMedication) {
             let newMedication = new Medication({
                 title: req.body.title,
-                _categoryId: req.params.categoryId
+                _categoryId: req.params.categoryId,
+                intakeHour: req.body.intakeHour,
+                intakeMinutes: req.body.intakeMinutes,
             });
+
             newMedication.save().then((newMedicationDoc) => {
                 res.send(newMedicationDoc);
             })
@@ -489,6 +478,96 @@ app.get('/users/me/access-token', verifySession, (req, res) => {
         res.status(400).send(e);
     });
 })
+
+/* HISTORY ROUTES */
+
+app.get('/history', authenticate, (req, res) => {
+    //return the history from the database
+
+    //search history by user id:
+    History.find({
+        _userId: req.user_id,
+        
+    }).then((history) => {
+        
+        res.send(history);
+    }).catch((e) => {
+        res.send(e);
+    });
+});
+
+
+app.post('/history', authenticate, (req, res) => {
+    //create a new history and return the new history document back to the user (which includes the id)
+    //the history information fields will be passed with JSON request body
+
+    let name = req.body.medicationName;
+    let hours = req.body.intakeHour;
+    let minutes = req.body.intakeMinutes;
+  
+    
+    
+    History.find({
+        _userId: req.user_id,
+        date: req.body.date,
+    }).then((history) => {
+  
+
+        if (history.length>0) {
+            console.log("in the if statement");
+            
+
+            History.findOneAndUpdate({
+                date: req.body.date,
+            }, {
+                $push: { takenMedications: { medicationName: name, intakeHour:hours, intakeMinutes:minutes } }
+            }
+            ).then(() => {
+                res.send({ message: 'Updated successfully.' })
+            })
+            
+            
+            // history[0].takenMedications.push({ medicationName: name, intakeHour:hours, intakeMinutes:minutes });
+
+            // console.log(history[0].takenMedications);
+            
+        } else {
+            console.log("in the else statement");
+
+            let newHistory = new History({
+                date: req.body.date,
+                takenMedications: [{
+                    medicationName: name,
+                    intakeHour: hours,
+                    intakeMinutes: minutes,
+                }],
+                _userId: req.user_id,
+
+
+            });
+
+            newHistory.save().then((historyDoc) => {
+                res.send(historyDoc);
+            });
+
+            
+        }
+    }).catch((e) => {
+        res.send(e);
+    });
+
+});
+
+app.delete('/history/:id', authenticate, (req, res) => {
+    //for deleting the specified category
+    History.findOneAndRemove({
+        _id: req.params.id,
+        _userId: req.user_id
+    }).then((removedHistoryDoc) => {
+        res.send(removedHistoryDoc);
+
+    })
+});
 
 
 /* HELPER METHODS */

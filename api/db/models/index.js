@@ -3,11 +3,11 @@
 const { Category } = require('./category.model');
 const { Medication } = require('./medication.model');
 const { User } = require('./user.model');
-const { Reminder } = require('./reminder.model');
+const { History } = require('./history.model');
 
 module.exports = {
     Category,
     Medication,
     User,
-    Reminder
+    History
 }
