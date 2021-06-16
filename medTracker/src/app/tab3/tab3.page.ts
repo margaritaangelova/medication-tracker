@@ -114,7 +114,6 @@ export class Tab3Page {
   }
 
   addMarker(map: any, result: any) {
-    console.log(result);
     
           let placeLoc = result.geometry.location;
     
