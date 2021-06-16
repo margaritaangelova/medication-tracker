@@ -5,29 +5,12 @@
     <div class="wrapper">
       <h1> Your intake history: </h1>
       <ul class="sessions" >
-        <!-- <li>
-          <div class="time">09.06.2021</div>
-          <p>First medication:  09:00 </p>
-          <p>Second medication: 22:30</p>
-        </li>
-       
-        <li>
-          <div class="time">08.06.2021</div>
-          <p>First medication:  09:00 </p>
-          <p>Second medication: 22:30</p>
-        </li>
-
-        <li>
-          <div class="time">07.06.2021</div>
-          <p>First medication:  09:00 </p>
-          <p>Second medication: 22:30</p>
-        </li> -->
-
+        
         <li *ngFor="let historyElement of historyElements">
           <div class="time">{{historyElement.date}}</div>
           <div *ngFor="let med of historyElement.takenMedications">
 
-            <p>{{med.medicationName}} (taken at {{med.intakeHour}}:{{med.intakeMinutes}} )</p>
+            <p id="takenMedications">{{med.medicationName}} (taken at {{med.intakeHour}}:{{med.intakeMinutes}} )</p>
           </div>
          
         </li>
