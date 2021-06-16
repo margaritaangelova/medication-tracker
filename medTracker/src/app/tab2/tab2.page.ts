@@ -16,9 +16,6 @@ export class Tab2Page  implements OnInit {
   ngOnInit() {
     this.medicationService.getHistory().subscribe((history: any) => {
       this.historyElements = history;
-
-      console.log(this.historyElements);
-      
       
     })
   }
