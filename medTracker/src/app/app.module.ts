@@ -11,6 +11,7 @@ import { ExploreContainerComponentModule } from './explore-container/explore-con
 import { TabsPageModule } from './tabs/tabs.module';
 import { RouterModule } from '@angular/router';
 import { WebReqInterceptor } from './web-req.interceptor.service';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +26,7 @@ import { WebReqInterceptor } from './web-req.interceptor.service';
     RouterModule,
   ],
   providers: [
+    Geolocation,
     { provide: HTTP_INTERCEPTORS, useClass: WebReqInterceptor, multi: true },
     { 
     provide: RouteReuseStrategy, 

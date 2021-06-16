@@ -31,17 +31,6 @@ export class NewMedicationComponent implements OnInit {
       }
     )
 
-    // var form = document.getElementById('form');
-    // var input = document.getElementById('intake');
-
-  //   form.addEventListener('submit', function (e) {
-  //     e.preventDefault();
-  //     if (input.value) {
-  //         socket.emit('medicationIntakeTime', input.value);
-  //         input.value = '';
-  //     }
-  // });
-
     this.socket.on('notification', data => {
       this.data = data;
     });
