@@ -177,6 +177,11 @@ a{
     //for creating space between medications:
     margin-top: 10px;
 
+    .button{
+      width: 40px !important; 
+      height: 40px !important; 
+    }
+
     //because the styles should be accessible only for medications that are not yet completed
     &:not(.complete){
         cursor: pointer;
