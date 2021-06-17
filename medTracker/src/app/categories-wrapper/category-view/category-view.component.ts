@@ -80,6 +80,8 @@ export class CategoryViewComponent implements OnInit {
 
       this.router.navigate(['tabs/tab1/categories/:categoryId'])
 
+      this.medicationService.showNotification({ message:'Deleted category successfully!' });
+
     });
   }
 

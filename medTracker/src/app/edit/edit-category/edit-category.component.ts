@@ -23,8 +23,6 @@ export class EditCategoryComponent implements OnInit, OnDestroy {
     this.subsciption = this.route.params.subscribe(
       (params: Params) => {
         this.categoryId = params.categoryId;
-        // console.log(params);
-        
       }
     )
   }
@@ -42,7 +40,9 @@ export class EditCategoryComponent implements OnInit, OnDestroy {
       // this.router.navigate(['/categories', this.categoryId]);
       // this.router.navigate(['']);
       // this.router.navigate(['../'], {relativeTo: this.route })
-      this.router.navigate([ 'tabs/tab1/categories/:categoryId']); 
+      this.router.navigate([ 'tabs/tab1/categories/:categoryId']);
+      
+      this.medicationService.showNotification({ message:'Updated category successfully!' });
     });
 
   }

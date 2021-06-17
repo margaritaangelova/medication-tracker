@@ -67,10 +67,15 @@ export class MedicationService {
     return this.webReqService.post('history', { date, medicationName, intakeHour, intakeMinutes});
   }
 
-  complete(medication: Medication){
-    return this.webReqService.patch(`categories/${medication._categoryId}/medications/${medication._id}`, {
-      //set the boolean to the opposite of the previous state (to toggle the completed)
-      completed: !medication.completed
-    })
-  }
+  showNotification({ message }) {
+    const infoContainer = document.getElementById('info');
+    console.log(infoContainer);
+    
+    infoContainer.style.display = 'block';
+    infoContainer.textContent = message;
+    setTimeout(() => {
+        infoContainer.textContent = '';
+        infoContainer.style.display = 'none';
+    }, 5000);
+}
 }

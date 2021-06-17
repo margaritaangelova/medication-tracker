@@ -1,11 +1,16 @@
 <ion-app>
     <ion-header [translucent]="true">
       <ion-toolbar>
-        <div style="display: flex; justify-content: space-around">
+        <div style="display: flex; justify-content: space-between">
         
-          <ion-title>
+          <p class="appName">
             Medication Reminder
-          </ion-title>
+          </p>
+
+          <section id="info" class="notifications" style="display: none;">
+            <p class="notification-message" id="successBox">Message...</p>
+          </section>
+          
   
           <button *ngIf="router.url !== '/login' && router.url !== '/register'" class="button" style="margin-right: 20px;" (click)="onLogoutButtonClicked()">Logout</button>
         </div>
