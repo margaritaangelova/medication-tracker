@@ -35,16 +35,12 @@ export class MedicationViewComponent implements OnInit {
   onMedicationDeleteCick(id: string){
     this.medicationService.deleteMedication(this.categoryId, id).subscribe(() => {
       this.medications = this.medications.filter(val => val._id !== id);
+
+      this.medicationService.showNotification({ message:'Deleted successfully!' });
     });
   }
 
   onTakeMedication(medication: Medication){
-    
-    // set the medication to completed
-    this.medicationService.complete(medication).subscribe(() => {
-      medication.completed = !medication.completed;
-      
-    });
 
     let currentDate  = new Date();
     let date = currentDate.toLocaleDateString();
@@ -54,11 +50,12 @@ export class MedicationViewComponent implements OnInit {
     // console.log(`${date} at ${hours}:${minutes}`);
 
     this.medicationService.createHistory(date, medication.title, hours, minutes).subscribe(() => {
-      
+      this.medicationService.showNotification({ message:'Medication taken for today!' });
     });
 
     
   }
+
   
 
 }

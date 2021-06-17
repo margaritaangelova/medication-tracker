@@ -51,6 +51,8 @@ export class EditMedicationComponent implements OnInit {
       //after clicking "Save", it navigates to the current category(with the given categoryId)
       // this.router.navigate(['/categories', this.categoryId]);
       this.router.navigate([ 'tabs/tab1/categories', this.categoryId]);
+
+      this.medicationService.showNotification({ message:'Updated medication successfully!' });
     });
     
     this.msg = {hour: intakeHour, minutes: intakeMinutes, medicationName: title};
