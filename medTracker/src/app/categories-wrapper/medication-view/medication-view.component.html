@@ -1,20 +1,19 @@
 <!-- Medication elements -->
-      <div class="medication" *ngFor="let medication of medications" style="position: relative" (click)="onMedicationClick(medication)">
-         <span *ngIf="medication.completed" class="fa-stack" style="vertical-align: top; position: absolute; left: -20px;">
-          <i class="fas fa-circle fa-stack-2x" style="color: white;"></i>
-          <i class="fas fa-check-circle fa-stack-2x fa-inverse" style="color: rgb(21, 255, 185);"></i>
-        </span>
-        <div class="medication-text">
-          <p>{{ medication.intakeHour }}:{{ medication.intakeMinutes }} - {{ medication.title }}</p>
-        </div>
-        <div class="medication-buttons">
-          <button class="button" [routerLink]="['./edit-medication', medication._id]">
-            <img class="edit-button-image" title="Edit medication"
-              src="../../assets/154-1541056_edit-edit-icon-svg-hd-png-download.png">
-          </button>
+<div class="medication" *ngFor="let medication of medications" style="position: relative">
+  <div class="medication-text">
+    <p>{{ medication.intakeHour }}:{{ medication.intakeMinutes }} - {{ medication.title }}</p>
+  </div>
+  <div class="medication-buttons">
+    <button class="button" (click)="onTakeMedication(medication)" title="Take medication" style="margin-left: 5px; background-color: #58CD36;">
+      <i class="fas fa-check" style="color: white;"></i>
+    </button>
+    <button class="button" [routerLink]="['./edit-medication', medication._id]" title="Edit medication" style="margin-left: 5px;">
+      <i class="fas fa-pen"></i>
+      
+    </button>
 
-          <button class="button is-danger" (click)="onMedicationDeleteCick(medication._id)" style="margin-left: 5px;">
-            <img class="delete-button-image" title="Delete medication" src="../../assets/trash-512.webp">
-          </button>
-        </div>
-      </div> 
+    <button class="button is-danger" (click)="onMedicationDeleteCick(medication._id)" title="Delete medication" style="margin-left: 5px;">
+      <i class="fas fa-trash-alt"></i>
+    </button>
+  </div>
+</div>

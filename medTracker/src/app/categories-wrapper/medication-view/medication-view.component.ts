@@ -38,7 +38,7 @@ export class MedicationViewComponent implements OnInit {
     });
   }
 
-  onMedicationClick(medication: Medication){
+  onTakeMedication(medication: Medication){
     
     // set the medication to completed
     this.medicationService.complete(medication).subscribe(() => {
