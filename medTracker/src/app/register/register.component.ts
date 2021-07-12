@@ -15,7 +15,7 @@ export class RegisterComponent implements OnInit {
 
   onRegisterButtonClicked(email: string, password: string){
     this.authservice.signup(email, password).subscribe((res: HttpResponse<any>)=> {
-      console.log(res);
+      // console.log(res);
       
     });
   }

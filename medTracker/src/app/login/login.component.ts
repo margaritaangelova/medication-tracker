@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['tabs/tab1/categories/:categoryId']);
       }
    
-      console.log(res);
+      // console.log(res);
       
     });
   }

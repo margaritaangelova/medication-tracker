@@ -18,22 +18,6 @@ const routes: Routes = [
     path: 'new-category',
     loadChildren: () => import('./new-category/new-category.module').then( m => m.NewCategoryComponentModule)
   },
-  // {
-  //   path: 'categories/:categoryId', 
-  //   loadChildren: () => import('./medication-view/medication-view.module').then( m => m.MedicationViewComponentModule)
-  // },
-  // {
-  //   path: 'categories/:categoryId/new-medication',
-  //   loadChildren: () => import('./new-medication/new-medication.module').then( m => m.NewMedicationComponentModule)
-  // },
-  // {
-  //   path: 'categories/:categoryId/medications/:medicationId',
-  //   loadChildren: () => import('./medication-view/medication-view.module').then( m => m.MedicationViewComponentModule)
-  // },
-  // {
-  //   path: 'categories/:categoryId/edit-category',
-  //   loadChildren: () => import('./edit/edit-category/edit-category.module').then( m => m.EditCategoryComponentModule)
-  // },
 ];
 @NgModule({
   imports: [

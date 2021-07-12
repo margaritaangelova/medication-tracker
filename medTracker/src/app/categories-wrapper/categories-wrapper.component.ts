@@ -4,6 +4,7 @@ import { MedicationService } from '../medication.service';
 import { CategoryViewComponent } from './category-view/category-view.component';
 import { io } from 'socket.io-client';
 import { registerLocaleData } from '@angular/common';
+import { LocalNotifications } from '@capacitor/local-notifications';
 
 @Component({
   selector: 'app-categories-wrapper',
@@ -26,26 +27,19 @@ export class CategoriesWrapperComponent implements OnInit, AfterViewInit {
   constructor(private medicationService: MedicationService, private route: ActivatedRoute, private router: Router) {
     this.socket = io('http://localhost:3000');
     // this.socket = io('http://10.0.2.2:3000');
+    // this.socket = io('http://blurpaper.com:9000');
    }
 
   ngOnInit() {
 
-    // this.medicationService.getCategories().subscribe((categories: any) => {
-    //   this.categoriesArray = categories;
-
-    // })
-
-    Notification.requestPermission();
+  
+//for desktop permission
+    // Notification.requestPermission();
+    LocalNotifications.requestPermissions();
     
   }
 
   ngAfterViewInit() {
-    // this.medicationsFromChild = this.medicationsArr.medications;
-
-    // console.log(this.medicationsArr);
-
-    // this.selectedCategoryID = this.categoryId.selectedCategoryID;
-    // console.log(this.selectedCategoryID);
 
     this.socket.on('notification', function (msg) {
         let intakeMinutes = msg[Object.keys(msg)[1]];
@@ -56,7 +50,17 @@ export class CategoriesWrapperComponent implements OnInit, AfterViewInit {
 
         let img = "../../assets/medicine.png";
         let text = "Time to take your medication: " + medicationName;
-        const n = new Notification('Medication Tracker', { body: text, icon: img });
+        LocalNotifications.schedule({
+          notifications: [
+            {
+              title: 'Reminder',
+              body: text,
+              id: 1,
+              smallIcon: img
+            }
+          ]
+        })
+        // const n = new Notification('Medication Tracker', { body: text, icon: img });
         // alert("Time to take your medication at: " + intakeHour +":" + intakeMinutes + " o'clock");
         
     });
