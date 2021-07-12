@@ -1,7 +1,7 @@
 <!-- Medication elements -->
 <div class="medication" *ngFor="let medication of medications" style="position: relative">
   <div class="medication-text">
-    <p>{{ medication.intakeHour }}:{{ medication.intakeMinutes }} - {{ medication.title }}</p>
+    <p>{{ medication.intakeHour }}:<span *ngIf="medication.intakeMinutes<10">0</span>{{ medication.intakeMinutes }} - {{ medication.title }}</p>
   </div>
   <div class="medication-buttons">
     <button class="button" (click)="onTakeMedication(medication)" title="Take medication" style="margin-left: 5px; background-color: #58CD36;">
