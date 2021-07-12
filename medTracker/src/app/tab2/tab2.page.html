@@ -10,7 +10,7 @@
           <div class="time">{{historyElement.date}}</div>
           <div *ngFor="let med of historyElement.takenMedications">
 
-            <p id="takenMedications">{{med.medicationName}} (taken at {{med.intakeHour}}:{{med.intakeMinutes}} )</p>
+            <div id="takenMedications" >{{med.medicationName}} (taken at {{med.intakeHour}}:<span *ngIf="med.intakeMinutes<10">0</span>{{med.intakeMinutes}})</div>
           </div>
          
         </li>

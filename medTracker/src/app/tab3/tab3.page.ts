@@ -72,7 +72,6 @@ export class Tab3Page {
     this.geolocation.getCurrentPosition().then((position) => {
 
       this.latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      // console.log(this.latLng);
 
 
       let mapOptions = {

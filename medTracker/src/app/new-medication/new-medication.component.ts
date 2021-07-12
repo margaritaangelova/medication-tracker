@@ -4,6 +4,7 @@ import { MedicationService } from '../medication.service';
 import { Medication } from '../models/medication.model';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { io } from 'socket.io-client';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-new-medication',
@@ -17,27 +18,40 @@ export class NewMedicationComponent implements OnInit {
   constructor(private medicationService: MedicationService, private route: ActivatedRoute, private router: Router,  private location: Location) {
     this.socket = io('http://localhost:3000');
     // this.socket = io('http://10.0.2.2:3000');
+    // this.socket = io('http://blurpaper.com:9000');
    }
 
   categoryId: string;
   msg: object;
+  subscription: Subscription;
+  subscription2: Subscription;
 
   ngOnInit() {
 
-    this.route.params.subscribe(
+    this.subscription = this.route.params.subscribe(
       (params: Params) => {
         this.categoryId = params['categoryId'];
         
       }
     )
 
-    this.socket.on('notification', data => {
-      this.data = data;
-    });
+    // this.socket.on('notification', data => {
+    //   this.data = data;
+    // });
+  }
+
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
+
+    
+    if(this.subscription2){
+      this.subscription2.unsubscribe();
+    }
+
   }
 
   createMedication(title: string, intakeHour: number, intakeMinutes: number) {
-    this.medicationService.createMedication(title, this.categoryId, intakeHour, intakeMinutes).subscribe(() => { 
+    this.subscription2 = this.medicationService.createMedication(title, this.categoryId, intakeHour, intakeMinutes).subscribe(() => { 
       
       //we can use relative routing here (../):
       this.router.navigate([ 'tabs/tab1/categories', this.categoryId]);

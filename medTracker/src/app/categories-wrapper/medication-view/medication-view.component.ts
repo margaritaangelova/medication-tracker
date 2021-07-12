@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router, NavigationEnd, ParamMap } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { MedicationService } from 'src/app/medication.service';
 import { Medication } from 'src/app/models/medication.model';
 
@@ -11,6 +12,11 @@ import { Medication } from 'src/app/models/medication.model';
 export class MedicationViewComponent implements OnInit {
   @Input() medications: Medication[];
 
+  subscription: Subscription;
+  subscription2: Subscription;
+  subscription3: Subscription;
+  subscription4: Subscription;
+
   
   constructor(private medicationService: MedicationService, private route: ActivatedRoute, private router: Router) { }
 
@@ -18,11 +24,11 @@ export class MedicationViewComponent implements OnInit {
 
   ngOnInit() {
 
-    this.route.paramMap.subscribe(
+    this.subscription = this.route.paramMap.subscribe(
       (params: ParamMap) => {
         this.categoryId = params.get('categoryId');
         
-        this.medicationService.getMedications(this.categoryId).subscribe((medications: any) => {
+        this.subscription2 = this.medicationService.getMedications(this.categoryId).subscribe((medications: any) => {
           this.medications = medications;
           
           
@@ -32,8 +38,25 @@ export class MedicationViewComponent implements OnInit {
     )
   }
 
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
+
+    
+    if(this.subscription2){
+      this.subscription2.unsubscribe();
+    }
+
+    if(this.subscription3){
+      this.subscription3.unsubscribe();
+    }
+
+    if(this.subscription4){
+      this.subscription4.unsubscribe();
+    }
+  }
+
   onMedicationDeleteCick(id: string){
-    this.medicationService.deleteMedication(this.categoryId, id).subscribe(() => {
+    this.subscription3 = this.medicationService.deleteMedication(this.categoryId, id).subscribe(() => {
       this.medications = this.medications.filter(val => val._id !== id);
 
       this.medicationService.showNotification({ message:'Deleted successfully!' });
@@ -46,10 +69,8 @@ export class MedicationViewComponent implements OnInit {
     let date = currentDate.toLocaleDateString();
     let hours = currentDate.getHours();
     let minutes = currentDate.getMinutes();
-    
-    // console.log(`${date} at ${hours}:${minutes}`);
 
-    this.medicationService.createHistory(date, medication.title, hours, minutes).subscribe(() => {
+    this.subscription4 = this.medicationService.createHistory(date, medication.title, hours, minutes).subscribe(() => {
       this.medicationService.showNotification({ message:'Medication taken for today!' });
     });
 

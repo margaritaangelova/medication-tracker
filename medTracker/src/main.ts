@@ -11,10 +11,3 @@ if (environment.production) {
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.log(err));
 
-
-  // const socket = io();
-
-  // socket.on('MyWebSocketServerEvent', function(msg) {
-  //   // message received from server, do something
-  //   console.log(msg);
-  // });

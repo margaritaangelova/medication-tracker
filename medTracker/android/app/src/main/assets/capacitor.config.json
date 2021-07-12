@@ -1,13 +1,18 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "medTracker",
-  "bundledWebRuntime": false,
-  "npmClient": "npm",
-  "webDir": "www",
-  "plugins": {
-    "SplashScreen": {
-      "launchShowDuration": 0
-    }
-  },
-  "cordova": {}
+	"appId": "io.ionic.starter",
+	"appName": "medTracker",
+	"bundledWebRuntime": false,
+	"npmClient": "npm",
+	"webDir": "www",
+	"plugins": {
+		"SplashScreen": {
+			"launchShowDuration": 0,
+			"LocalNotifications": {
+				"smallIcon": "ic_stat_heartbeat_solid",
+				"iconColor": "#488AFF",
+				"sound": "beep.wav"
+			}
+		}
+	},
+	"cordova": {}
 }
